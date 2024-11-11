@@ -25,6 +25,7 @@ const GeneralSMS = () => {
 	const [show, setShow] = useState(false);
 	const [program, setProgram] = useState('');
 	const [programs, setPrograms] = useState([]);
+	const [buttonClicked, setButtonClicked] = useState('');
 
 	useEffect(() => {
 		apiClient
@@ -78,15 +79,42 @@ const GeneralSMS = () => {
 	};
 
 	const getStudents = (acYear, program, cla) => {
-		console.log(
-			'academicYear ' + acYear,
-			' Program ' + program,
-			' class ' + cla
+		setButtonClicked(
+			'Academic Year: ' +
+				acYear +
+				', Program: ' +
+				program.toLowerCase() +
+				', Class: ' +
+				cla.toLowerCase()
 		);
+		console.log(
+			'Academic Year: ' + acYear + ', Program: ' + program + ', Class ' + cla
+		);
+		setStudents([]);
 		setFilteredStudents([]);
 		setLoading(true);
 		apiClient
 			.get('/student/' + acYear + '/' + program + '/' + cla)
+			.then((response) => {
+				setStudents(response.data);
+				setFilteredStudents(response.data);
+				setLoading(false);
+				console.log(response.data);
+			})
+			.catch((err) => {
+				setError(err);
+				setLoading(false);
+			});
+	};
+
+	const getAllStudents = () => {
+		setButtonClicked('Entire Student List');
+		console.log('Entire Student List');
+		setFilteredStudents([]);
+		setStudents([]);
+		setLoading(true);
+		apiClient
+			.get('/allStudents')
 			.then((response) => {
 				setStudents(response.data);
 				setFilteredStudents(response.data);
@@ -255,6 +283,16 @@ const GeneralSMS = () => {
 							Load Students
 						</button>
 					)}
+
+					{!loading && (
+						<button
+							onClick={getAllStudents}
+							type="button"
+							className="mt-3 mb-3 btn btn-secondary col-12"
+						>
+							Load Entire School
+						</button>
+					)}
 				</div>
 
 				<div className="col-sm-12 col-md-6 col-lg-8 justify-content-center align-items-center">
@@ -279,6 +317,9 @@ const GeneralSMS = () => {
 					)}
 				</div>
 			</div>
+			<span className="input-group-sm float-end text-muted">
+				{buttonClicked}
+			</span>
 			<div class="input-group mb-3">
 				<span class="input-group-text" id="basic-addon1">
 					Search Student
@@ -287,11 +328,12 @@ const GeneralSMS = () => {
 					type="text"
 					className="form-control"
 					//placeholder="Search Student"
-					aria-label="Username"
+					aria-label="Search"
 					aria-describedby="basic-addon1"
 					onChange={handleSearch}
 				/>
 			</div>
+
 			<table
 				border="2"
 				className="table-info table table-striped table-hover table-bordered mt-3  "
