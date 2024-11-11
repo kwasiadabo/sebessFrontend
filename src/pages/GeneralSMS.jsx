@@ -179,7 +179,7 @@ const GeneralSMS = () => {
 
 	const sendSMS = async () => {};
 	return (
-		<>
+		<div className="container">
 			<div className="alert alert-primary text-center" role="alert">
 				<h1>General SMS !</h1>
 				<p>
@@ -188,96 +188,71 @@ const GeneralSMS = () => {
 				</p>
 			</div>
 
-			<div className="float-container m-3">
-				<div className="float-child">
-					<div>
-						<div className="row align-items-start">
-							<div className="col-10">
-								<div className="row g-3 align-items-center">
-									<div class="col-auto">
-										<label
-											for="inputPassword6"
-											className=" text-muted col-form-label"
-										>
-											Academic Year
-										</label>
-									</div>
-									<select
-										className="form-select"
-										aria-label="Default select example"
-										onChange={(e) => {
-											setAcYear(e.currentTarget.value);
-											console.log(e.currentTarget.value);
-										}}
-									>
-										{/* <option>{null}</option> */}
-										{academicyear.map((a) => (
-											<option>{a.Academicyear}</option>
-										))}
-									</select>
-								</div>
-							</div>
-						</div>
+			<div className="row">
+				<div className="col-sm-12 col-md-8 col-lg-3">
+					<label for="inputPassword6" className=" text-muted col-form-label">
+						Academic Year
+					</label>
 
-						<div className="col-10">
-							<div class="row g-3">
-								<div class="col-auto">
-									<label htmlFor="" className="col-form-label">
-										Program / Course
-									</label>
-								</div>
-								<select
-									className="form-select"
-									aria-label="Default select example"
-									onChange={(e) => {
-										setProgram(e.currentTarget.value);
-										console.log(e.currentTarget.value);
-									}}
-								>
-									{/* <option>{null}</option> */}
-									{programs.map((a) => (
-										<option>{a.programName}</option>
-									))}
-								</select>
-							</div>
-						</div>
+					<select
+						className="form-select"
+						aria-label="Default select example"
+						onChange={(e) => {
+							setAcYear(e.currentTarget.value);
+							console.log(e.currentTarget.value);
+						}}
+					>
+						{/* <option>{null}</option> */}
+						{academicyear.map((a) => (
+							<option>{a.Academicyear}</option>
+						))}
+					</select>
 
-						<div class="col-10">
-							<div class="row g-3 align-items-center">
-								<div class="col-auto">
-									<label for="inputPassword6" className="col-form-label">
-										Class
-									</label>
-								</div>
-								<select
-									onChange={(e) => {
-										setCla(e.currentTarget.value);
-										//console.log(e.currentTarget.value);
-									}}
-									className="form-select"
-									aria-label="Default select example"
-								>
-									{/* <option>{null}</option> */}
-									{classes.map((c) => (
-										<option>{c.class}</option>
-									))}
-								</select>
-							</div>
-						</div>
+					<label htmlFor="" className="col-form-label">
+						Program / Course
+					</label>
+					<select
+						className="form-select"
+						aria-label="Default select example"
+						onChange={(e) => {
+							setProgram(e.currentTarget.value);
+							console.log(e.currentTarget.value);
+						}}
+					>
+						{/* <option>{null}</option> */}
+						{programs.map((a) => (
+							<option>{a.programName}</option>
+						))}
+					</select>
 
-						{!loading && (
-							<button
-								onClick={() => getStudents(acYear, program, cla)}
-								type="button"
-								className="m-3 btn btn-primary"
-							>
-								Load Students
-							</button>
-						)}
-					</div>
+					<label for="inputPassword6" className="col-form-label">
+						Class
+					</label>
+					<select
+						onChange={(e) => {
+							setCla(e.currentTarget.value);
+							//console.log(e.currentTarget.value);
+						}}
+						className="form-select"
+						aria-label="Default select example"
+					>
+						{/* <option>{null}</option> */}
+						{classes.map((c) => (
+							<option>{c.class}</option>
+						))}
+					</select>
+					{!loading && (
+						<button
+							onClick={() => getStudents(acYear, program, cla)}
+							type="button"
+							className="m-3 btn btn-primary"
+						>
+							Load Students
+						</button>
+					)}
 				</div>
 
-				<div class="float-child">
+				<div className="col-sm-12 col-md-6 col-lg-8 justify-content-center align-items-center">
 					<div class="form-group">
 						<label for="exampleFormControlTextarea1">Text Message</label>
 						<textarea
@@ -341,7 +316,7 @@ const GeneralSMS = () => {
 					</table>
 				)}
 			</div>
-		</>
+		</div>
 	);
 };
 

@@ -26,31 +26,31 @@ const LandingPage = () => {
 						information accross has never been this easy
 					</p>
 				</div>
-				{/* <Link to="/about">About</Link> */}
-				<div className="row gx-20">
-					{/* <div className="container-fluid min-vh-100 w-100 d-flex flex-column justify-content-center align-items-center"> */}
-					<div className="col">
-						<div className="p-3">
-							<FaSms size={90} className="card-img-top" color="red" />
+			</div>
 
-							<Card
-								cardTitle="General SMS"
-								cardText="Send general sms to students from here"
-								btnText="Send"
-								link="/generalsms"
-							/>
-							{/* <Link to="/generalsms">General SMS</Link> */}
-						</div>
+			{/* <Link to="/about">About</Link> */}
+			{/* <div className="row gx-20"> */}
+			<div className="container">
+				<div className="row justify-content-center align-items-center">
+					{/* <div className="container-fluid min-vh-100 w-100 d-flex flex-column justify-content-center align-items-center"> */}
+					<div className="col-sm-10 col-md-6 col-lg-6 p-3">
+						<FaSms size={90} className="card-img-top" color="red" />
+
+						<Card
+							cardTitle="General SMS"
+							cardText="Send general sms to students from here"
+							btnText="Send"
+							link="/generalsms"
+						/>
+						{/* <Link to="/generalsms">General SMS</Link> */}
 					</div>
-					<div className="col">
-						<div className="p-3">
-							<FaWeixin size={90} className="card-img-top" color="blue" />
-							<Card
-								cardTitle="Exam Results"
-								cardText="Send exam results to students from here"
-								link="/resultssms"
-							/>
-						</div>
+					<div className="col-sm-10 col-md-6 col-lg-6 p-3">
+						<FaWeixin size={90} className="card-img-top" color="blue" />
+						<Card
+							cardTitle="Exam Results"
+							cardText="Send exam results to students from here"
+							link="/resultssms"
+						/>
 					</div>
 				</div>
 			</div>
