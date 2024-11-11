@@ -9,7 +9,7 @@ const GeneralSMS = () => {
 	const [classes, setClasses] = useState([]);
 	const [students, setStudents] = useState([]);
 	const [filteredStudents, setFilteredStudents] = useState([]);
-
+	const [search, setSearch] = useState('');
 	const [loading, setLoading] = useState(false);
 	const [acYear, setAcYear] = useState('');
 	const [cla, setCla] = useState('');
@@ -150,7 +150,7 @@ const GeneralSMS = () => {
 		//console.log(smsMessage);
 		//console.log(filteredStudents);
 		setLoading(true);
-		const xdata = students.map((i) => ({
+		const xdata = dataTouse.map((i) => ({
 			...i,
 			message: smsMessage,
 			senderId: senderId,
@@ -166,16 +166,22 @@ const GeneralSMS = () => {
 				setError(err);
 				setLoading(false);
 			});
+		setStudents([]);
+		setSmsMessage('');
+	};
+
+	const handleSearch = (e) => {
+		setSearch(e.currentTarget.value);
 	};
 
 	const data = {
 		filteredStudents: students.filter(
-			(m) => m.AcademicYear?.includes(acYear) //||
+			(m) => m.FullName.toLowerCase().includes(search.toLowerCase()) //||
 			//m.class?.toLowerCase().includes(cla.toLowerCase())
 		),
 	};
 
-	const dataTouse = acYear.length === 0 ? students : data.filteredStudents;
+	const dataTouse = search.length === 0 ? students : data.filteredStudents;
 
 	const sendSMS = async () => {};
 	return (
@@ -187,7 +193,6 @@ const GeneralSMS = () => {
 					information accross has never been this easy...
 				</p>
 			</div>
-
 			<div className="row">
 				<div className="col-sm-12 col-md-6 col-lg-3">
 					<label for="inputPassword6" className=" text-muted col-form-label">
@@ -245,14 +250,14 @@ const GeneralSMS = () => {
 						<button
 							onClick={() => getStudents(acYear, program, cla)}
 							type="button"
-							className="m-3 btn btn-primary"
+							className="mt-3 mb-3 btn btn-primary col-12"
 						>
 							Load Students
 						</button>
 					)}
 				</div>
 
-				<div className="col-sm-12 col-md-6 col-lg-3 justify-content-center align-items-center">
+				<div className="col-sm-12 col-md-6 col-lg-8 justify-content-center align-items-center">
 					<div class="form-group">
 						<label for="exampleFormControlTextarea1">Text Message</label>
 						<textarea
@@ -263,57 +268,51 @@ const GeneralSMS = () => {
 						></textarea>
 					</div>
 
-					<button
-						onClick={handleSubmit}
-						type="button"
-						className="mt-3 col-2 btn btn-success"
-					>
-						Send
-					</button>
+					{smsMessage.length > 1 && dataTouse.length > 0 && (
+						<button
+							onClick={handleSubmit}
+							type="button"
+							className="mt-3 col-2 btn btn-success float-end"
+						>
+							Send
+						</button>
+					)}
 				</div>
 			</div>
-
-			{students.length > 0 && (
-				<table
-					border="2"
-					className="table-info table table-striped table-hover table-bordered m-3 "
-				>
-					<thead>
-						<tr>
-							{/* <th>
-										<input
-											className="mb-3"
-											type="checkbox"
-											name="select"
-											//checked={checked}
-											onChange={handleCheckboxChange}
-										></input>
-									</th> */}
-							<th>StudentID</th>
-							<th>Name</th>
-							<th>Phone</th>
+			<div class="input-group mb-3">
+				<span class="input-group-text" id="basic-addon1">
+					Search Student
+				</span>
+				<input
+					type="text"
+					className="form-control"
+					//placeholder="Search Student"
+					aria-label="Username"
+					aria-describedby="basic-addon1"
+					onChange={handleSearch}
+				/>
+			</div>
+			<table
+				border="2"
+				className="table-info table table-striped table-hover table-bordered mt-3  "
+			>
+				<thead>
+					<tr>
+						<th>StudentID</th>
+						<th>Name</th>
+						<th>Phone</th>
+					</tr>
+				</thead>
+				<tbody>
+					{dataTouse.map((s, index) => (
+						<tr key={s.studentNumber}>
+							<td>{s.StudentNumber}</td>
+							<td>{s.FullName}</td>
+							<td>{s.Tel}</td>
 						</tr>
-					</thead>
-					<tbody>
-						{students.map((s, index) => (
-							<tr key={s.studentNumber}>
-								{/* <td>
-											{<input
-												type="checkbox"
-												name="select"
-												//checked={s.studentNumber}
-												value={s.studentNumber}
-												onChange={handleMyCheckBox}
-											/> 
-										</td> */}
-								<td>{s.StudentNumber}</td>
-								<td>{s.FullName}</td>
-								<td>{s.Tel}</td>
-							</tr>
-						))}
-					</tbody>
-				</table>
-			)}
+					))}
+				</tbody>
+			</table>
 		</div>
 	);
 };

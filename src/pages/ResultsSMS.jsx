@@ -23,6 +23,7 @@ const ResultsSMS = () => {
 	const [program, setProgram] = useState('');
 	const [programs, setPrograms] = useState([]);
 	const [term, setTerm] = useState('');
+	const [search, setSearch] = useState('');
 	const [loadClicked, setLoadClicked] = useState(false);
 
 	useEffect(() => {
@@ -141,24 +142,10 @@ const ResultsSMS = () => {
 		}
 	};
 
-	// Handle individual checkbox change
-	// const handleCheckboxClicked = (index) => {
-	// 	const updatedCheckedItems = [...checkedItems];
-	// 	updatedCheckedItems[index] = !updatedCheckedItems[index];
-	// 	setCheckedItems(updatedCheckedItems);
-	// };
-
-	// // Function to get the checked rows
-	// const getCheckedRows = () => {
-	// 	return filteredStudents.filter((item, index) => checkedItems[index]);
-	// };
-
 	const handleSubmit = () => {
-		//console.log(smsMessage);
-		//console.log(filteredStudents);
 		setLoading(true);
 		apiClient
-			.post('/smsresults', students)
+			.post('/smsresults', dataTouse)
 			.then((response) => {
 				console.log(response.data);
 				setApiResponse(response.data);
@@ -168,16 +155,21 @@ const ResultsSMS = () => {
 				setError(err);
 				setLoading(false);
 			});
+		setStudents([]);
+	};
+
+	const handleSearch = (e) => {
+		setSearch(e.currentTarget.value);
 	};
 
 	const data = {
 		filteredStudents: students.filter(
-			(m) => m.AcademicYear?.includes(acYear) //||
+			(m) => m.StudentName.toLowerCase().includes(search.toLowerCase()) //||
 			//m.class?.toLowerCase().includes(cla.toLowerCase())
 		),
 	};
 
-	const dataTouse = acYear.length === 0 ? students : data.filteredStudents;
+	const dataTouse = search.length === 0 ? students : data.filteredStudents;
 
 	const sendSMS = async () => {};
 	return (
@@ -200,7 +192,7 @@ const ResultsSMS = () => {
 						aria-label="Default select example"
 						onChange={(e) => {
 							setAcYear(e.currentTarget.value);
-							console.log(e.currentTarget.value);
+							setStudents([]);
 						}}
 					>
 						{/* <option>{null}</option> */}
@@ -217,7 +209,7 @@ const ResultsSMS = () => {
 						aria-label="Default select example"
 						onChange={(e) => {
 							setProgram(e.currentTarget.value);
-							console.log(e.currentTarget.value);
+							setStudents([]);
 						}}
 					>
 						{/* <option>{null}</option> */}
@@ -232,7 +224,7 @@ const ResultsSMS = () => {
 					<select
 						onChange={(e) => {
 							setCla(e.currentTarget.value);
-							//console.log(e.currentTarget.value);
+							setStudents([]);
 						}}
 						className="form-select"
 						aria-label="Default select example"
@@ -250,7 +242,7 @@ const ResultsSMS = () => {
 						aria-label="Default select example"
 						onChange={(e) => {
 							setTerm(e.currentTarget.value);
-							console.log(e.currentTarget.value);
+							setStudents([]);
 						}}
 					>
 						<option>First</option>
@@ -265,45 +257,44 @@ const ResultsSMS = () => {
 								setLoadClicked(!loadClicked);
 							}}
 							type="button"
-							className="m-3 col-10 btn btn-outline-primary"
+							className="mt-3 col-12 btn btn-outline-primary"
 						>
 							Load Results
 						</button>
 					)}
 
-					{/* {!loading && (
-							<button
-								onClick={() => {
-									getEntireStudentsResults(acYear, term, program);
-									setLoadClicked(!loadClicked);
-								}}
-								type="button"
-								className="m-3 btn btn-outline-primary"
-							>
-								Load Results By Program
-							</button>
-						)} */}
-					{students.length != 0 && (
-						<div className="text-align-center">
-							<button
-								onClick={handleSubmit}
-								type="button"
-								className="m-3 col-10 btn btn-success"
-							>
-								Send
-							</button>
-						</div>
+					{students.length > 1 && (
+						<button
+							onClick={handleSubmit}
+							type="button"
+							className="mt-5 col-12 btn btn-success"
+						>
+							Send
+						</button>
 					)}
 				</div>
-
-				<div className="col-sm-12 col-md-6 col-lg-3">
-					<table
-						border="2"
-						className="table-info table table-striped table-hover table-bordered "
-					>
-						<thead>
-							<tr>
-								{/* <th>
+				{students.length > 1 && (
+					<div className="col-sm-12 col-md-6 col-lg-9">
+						<div class="input-group mb-3">
+							<span class="input-group-text" id="basic-addon1">
+								Search Student
+							</span>
+							<input
+								type="text"
+								className="form-control"
+								//placeholder="Search Student"
+								aria-label="Username"
+								aria-describedby="basic-addon1"
+								onChange={handleSearch}
+							/>
+						</div>
+						<table
+							border="2"
+							className="table-info table table-striped table-hover table-bordered "
+						>
+							<thead>
+								<tr>
+									{/* <th>
 										<input
 											className="mb-3"
 											type="checkbox"
@@ -312,16 +303,16 @@ const ResultsSMS = () => {
 											onChange={handleCheckboxChange}
 										></input>
 									</th> */}
-								<th>StudentID</th>
-								<th>Name</th>
-								<th>Grade</th>
-								<th>Phone</th>
-							</tr>
-						</thead>
-						<tbody>
-							{students.map((s, index) => (
-								<tr key={s.studentNumber}>
-									{/* <td>
+									<th>StudentID</th>
+									<th>Name</th>
+									<th>Grade</th>
+									<th>Phone</th>
+								</tr>
+							</thead>
+							<tbody>
+								{dataTouse.map((s, index) => (
+									<tr key={s.studentNumber}>
+										{/* <td>
 											{<input
 												type="checkbox"
 												name="select"
@@ -330,15 +321,16 @@ const ResultsSMS = () => {
 												onChange={handleMyCheckBox}
 											/> 
 										</td> */}
-									<td>{s.StudentNumber}</td>
-									<td>{s.StudentName}</td>
-									<td>{s.Grade}</td>
-									<td>{s.phone_Number}</td>
-								</tr>
-							))}
-						</tbody>
-					</table>
-				</div>
+										<td>{s.StudentNumber}</td>
+										<td>{s.StudentName}</td>
+										<td>{s.Grade}</td>
+										<td>{s.phone_Number}</td>
+									</tr>
+								))}
+							</tbody>
+						</table>
+					</div>
+				)}
 			</div>
 		</div>
 	);
