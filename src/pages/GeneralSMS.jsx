@@ -295,7 +295,7 @@ const GeneralSMS = () => {
 					)}
 				</div>
 
-				<div className="col-sm-4 col-md-6 col-lg-8 justify-content-center align-items-center">
+				<div className="col-sm-4 col-md-6 col-lg-3 justify-content-center align-items-center">
 					<div class="form-group">
 						<label for="exampleFormControlTextarea1">Text Message</label>
 						<textarea
