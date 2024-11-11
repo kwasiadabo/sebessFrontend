@@ -222,7 +222,7 @@ const GeneralSMS = () => {
 				</p>
 			</div>
 			<div className="row">
-				<div className="col-sm-12 col-md-6 col-lg-3">
+				<div className="col-sm-4 col-md-6 col-lg-3">
 					<label for="inputPassword6" className=" text-muted col-form-label">
 						Academic Year
 					</label>
@@ -295,7 +295,7 @@ const GeneralSMS = () => {
 					)}
 				</div>
 
-				<div className="col-sm-12 col-md-6 col-lg-8 justify-content-center align-items-center">
+				<div className="col-sm-4 col-md-6 col-lg-8 justify-content-center align-items-center">
 					<div class="form-group">
 						<label for="exampleFormControlTextarea1">Text Message</label>
 						<textarea
