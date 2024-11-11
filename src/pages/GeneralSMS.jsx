@@ -189,7 +189,7 @@ const GeneralSMS = () => {
 			</div>
 
 			<div className="row">
-				<div className="col-sm-12 col-md-8 col-lg-3">
+				<div className="col-sm-12 col-md-6 col-lg-3">
 					<label for="inputPassword6" className=" text-muted col-form-label">
 						Academic Year
 					</label>
@@ -252,7 +252,7 @@ const GeneralSMS = () => {
 					)}
 				</div>
 
-				<div className="col-sm-12 col-md-6 col-lg-8 justify-content-center align-items-center">
+				<div className="col-sm-12 col-md-6 col-lg-3 justify-content-center align-items-center">
 					<div class="form-group">
 						<label for="exampleFormControlTextarea1">Text Message</label>
 						<textarea
@@ -273,15 +273,14 @@ const GeneralSMS = () => {
 				</div>
 			</div>
 
-			<div className="col-12 mt-3">
-				{students.length > 0 && (
-					<table
-						border="2"
-						className="table-info table table-striped table-hover table-bordered m-3 "
-					>
-						<thead>
-							<tr>
-								{/* <th>
+			{students.length > 0 && (
+				<table
+					border="2"
+					className="table-info table table-striped table-hover table-bordered m-3 "
+				>
+					<thead>
+						<tr>
+							{/* <th>
 										<input
 											className="mb-3"
 											type="checkbox"
@@ -290,15 +289,15 @@ const GeneralSMS = () => {
 											onChange={handleCheckboxChange}
 										></input>
 									</th> */}
-								<th>StudentID</th>
-								<th>Name</th>
-								<th>Phone</th>
-							</tr>
-						</thead>
-						<tbody>
-							{students.map((s, index) => (
-								<tr key={s.studentNumber}>
-									{/* <td>
+							<th>StudentID</th>
+							<th>Name</th>
+							<th>Phone</th>
+						</tr>
+					</thead>
+					<tbody>
+						{students.map((s, index) => (
+							<tr key={s.studentNumber}>
+								{/* <td>
 											{<input
 												type="checkbox"
 												name="select"
@@ -307,15 +306,14 @@ const GeneralSMS = () => {
 												onChange={handleMyCheckBox}
 											/> 
 										</td> */}
-									<td>{s.StudentNumber}</td>
-									<td>{s.FullName}</td>
-									<td>{s.Tel}</td>
-								</tr>
-							))}
-						</tbody>
-					</table>
-				)}
-			</div>
+								<td>{s.StudentNumber}</td>
+								<td>{s.FullName}</td>
+								<td>{s.Tel}</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			)}
 		</div>
 	);
 };

@@ -191,7 +191,7 @@ const ResultsSMS = () => {
 			</div>
 
 			<div className="row">
-				<div className="col-sm-12 col-md-8 col-lg-3">
+				<div className="col-sm-12 col-md-6 col-lg-3">
 					<label for="inputPassword6" className=" text-muted col-form-label">
 						Academic Year
 					</label>
@@ -296,7 +296,7 @@ const ResultsSMS = () => {
 					)}
 				</div>
 
-				<div className="col-sm-12 col-md-6 col-lg-8">
+				<div className="col-sm-12 col-md-6 col-lg-3">
 					<table
 						border="2"
 						className="table-info table table-striped table-hover table-bordered "
